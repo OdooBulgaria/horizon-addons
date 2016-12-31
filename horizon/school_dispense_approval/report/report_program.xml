@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+##############################################################################
+#
+#    Copyright (c) 2015 be-cloud.be
+#                       Jerome Sonnet <jerome.sonnet@be-cloud.be>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+-->
+<odoo>
+    
+    <!-- Program Form View -->
+    <record model="ir.ui.view" id="view_individual_course_dispense_pivot">
+      <field name="name">school.course.pivot</field>
+      <field name="model">school.individual_course</field>
+      <field name="type">pivot</field>
+      <field name="arch" type="xml">
+        <pivot string="Courses Summary">
+            <field name="source_bloc_cycle_id" type="row"/>
+            <field name="name" type="row"/>
+            <field name="dispense_char" type="col"/>
+            <field name="is_dispense_approved_char" type="col"/>
+        </pivot>
+      </field>
+    </record>
+    
+    <record id="view_individual_dispense_filter" model="ir.ui.view">
+      <field name="name">course.select</field>
+      <field name="model">school.individual_course</field>
+      <field name="arch" type="xml">
+        <search string="Search Course">
+          <field name="name" filter_domain="[('name','ilike',self)]" />
+          <field name="teacher_id" filter_domain="[('teacher_id','ilike',self)]" />
+          <field name="student_id" filter_domain="[('student_id','ilike',self)]" />
+           <separator/>
+          <filter name="dispensed" string="Dispensed" domain="[('dispense', '=', True)]"/>
+          <filter name="not_dispensed" string="Not Dispensed" domain="[('dispense', '=', False)]"/>
+           <separator/>
+          <filter name="bloc_1" string="Bac 1" domain="[('source_bloc_level', '=', 1)]"/>
+          <filter name="bloc_2" string="Bac 2" domain="[('source_bloc_level', '=', 2)]"/>
+          <filter name="bloc_3" string="Bac 3" domain="[('source_bloc_level', '=', 3)]"/>
+          <filter name="bloc_4" string="Master 1" domain="[('source_bloc_level', '=', 4)]"/>
+          <filter name="bloc_5" string="Master 2" domain="[('source_bloc_level', '=', 5)]"/>
+           <separator/>
+          <filter name="my_courses" string="My Courses" domain="[('teacher_id.user_ids','=',uid)]" />
+          <separator/>
+          <filter string="Current Year" name="current" domain="[('year_sequence','=','current')]" />
+          <filter string="Next Year" name="next" domain="[('year_sequence','=','next')]" />
+          <filter string="Previous Year" name="previous" domain="[('year_sequence','=','previous')]" />
+          <separator/>
+          <filter name="my_current_courses" string="My Current Courses" domain="[('teacher_id.user_ids','=',uid),('year_sequence','=','current')]" />
+          <group expand="1" string="Group By">
+            <filter string="Teacher" context="{'group_by':'teacher_id'}" />
+            <filter string="Domain" context="{'group_by':'source_bloc_domain_id'}" />
+            <filter string="Cycle" context="{'group_by':'source_bloc_cycle_id'}" />
+            <filter string="Section" context="{'group_by':'source_bloc_section_id'}" />
+            <filter string="Track" context="{'group_by':'source_bloc_track_id'}" />
+            <filter string="Speciality" context="{'group_by':'source_bloc_speciality_id'}" />
+            <filter string="Name" context="{'group_by':'name'}" />
+          </group>
+        </search>
+      </field>
+    </record>
+    
+    <record id="action_report_school_dispense" model="ir.actions.act_window">
+        <field name="name">Dispenses</field>
+        <field name="res_model">school.individual_course</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">pivot</field>
+        <field name="search_view_id" ref="view_individual_dispense_filter" />
+        <field name="view_id" ref="view_individual_course_dispense_pivot" />
+        <field name="context">{"search_default_current":1}</field>
+    </record>
+    
+    <menuitem id="menu_report_dispense_pivot" parent="school_management.menu_teaching_report" action="action_report_school_dispense" sequence="15"/>
+
+</odoo>

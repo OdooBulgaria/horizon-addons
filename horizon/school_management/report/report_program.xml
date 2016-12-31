@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+##############################################################################
+#
+#    Copyright (c) 2015 be-cloud.be
+#                       Jerome Sonnet <jerome.sonnet@be-cloud.be>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+-->
+<odoo>
+    
+    <!-- report -->
+    <report 
+        id="report_program"
+        model="school.program"
+        string="Program"
+        report_type="qweb-pdf"
+        name="school_management.report_program_details_content"
+        file="school_management.report_program_details_content"
+        />
+        
+    <template id="report_program_details_content">
+        <t t-call="report.html_container">
+            <t t-set="data_report_margin_top" t-value="45" />
+            <t t-set="data_report_header_spacing" t-value="40" />
+            <t t-set="program" t-value="docs[0]" />
+            <t t-call="report.external_layout">
+                <div class="page">
+                    <t t-call="website_portal_school_management.program_details_content"/>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <report 
+        id="report_individual_bloc"
+        model="school.individual_bloc"
+        string="Individual Bloc Description"
+        report_type="qweb-pdf"
+        name="school_management.report_individual_bloc_content"
+        file="school_management.report_individual_bloc_content"
+        />
+
+    <!--Email template -->
+    <record id="email_template_report_individual_bloc" model="mail.template">
+            <field name="name">Individual Bloc - Send by Email</field>
+            <field name="email_to">${(object.student_id.email and '%s &lt;%s&gt;' % (object.student_id.name, object.student_id.email) or '')|safe}</field>
+            <field name="subject">Individual Bloc</field>
+            <field name="partner_to">${object.student_id.id}</field>
+            <field name="model_id" ref="model_school_individual_bloc"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_template" ref="report_individual_bloc"/>
+            <field name="report_name">Individual Bloc Details</field>
+            <field name="lang">${object.student_id.lang}</field>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Hello ${object.student_id.name},</p>
+                    <br/>
+                    <p>Your Individual Bloc details is attached to this email. </p>
+                    <br/>
+                    <p>If you have any question, do not hesitate to contact us.</p>
+                    <br/>
+                </div>
+            ]]></field>
+    </record>
+
+    <template id="school_bloc" name="Bloc">
+        <div class="col-md-12">
+            <table class="table table-condensed oe_school_program_table">
+                <caption style="font-size: 100%;">Grille du bloc - <t t-esc="bloc.name"/></caption>
+                <colgroup>
+                    <col style="width:75px"/>
+                    <col style="width:100%"/>
+                    <col style="width:60px"/>
+                    <col style="width:60px"/>
+                    <!--<col style="width:60px"/>-->
+                    <col style="width:100px"/>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Code UE</th> 
+                        <th>Unités d’enseignement</th> 
+                        <th class="text-center">Heures</th> 
+                        <th class="text-center">ECTS</th>
+                        <th class="text-center">Pond</th>
+                        <!--<th>Pré/Co-requis</th>-->
+                        <th>Statut</th>
+                    </tr> 
+                </thead>
+                <tbody>
+                    <t t-foreach="bloc.course_group_ids" t-as="course_group">
+                    <tr class="oe_school_course_group">
+                        <td><t t-esc="course_group.code_ue"/></td>
+                        <td><t t-esc="course_group.name"/></td>
+                        <td class="text-center"><t t-esc="course_group.total_hours"/></td>
+                        <td class="text-center"><t t-esc="course_group.total_credits"/></td>
+                        <td></td>
+                        <!--<td class="text-center">Aucun</td>-->
+                        <td>
+                            <t t-if="course_group.dispense">Disp.</t>
+                            <t t-if="course_group.group_registration_type == 'rework'">Rés</t>
+                            <t t-if="course_group.group_registration_type == 'anticipated'">Ant</t>
+                        </td>
+                    </tr>
+                    <tr t-foreach="course_group.course_ids" t-as="course">
+                        <td></td>
+                        <td t-if="course.url_ref"><a t-esc="course.title" t-att-href="course.url_ref" target="new"/></td>
+                        <td t-if="not course.url_ref"><t t-esc="course.title"/></td>
+                        <td class="text-center"><t t-esc="course.hours"/></td>
+                        <td class="text-center"><t t-esc="course.credits"/></td>
+                        <td class="text-center"><t t-esc="course.weight"/></td>
+                        <!--<td></td>-->
+                        <td><t t-if="course.dispense">Disp.</t></td>
+                    </tr>
+                    </t>
+                    <tr>
+                        <td></td>
+                        <td class="text-right">Total :</td>
+                        <td class="text-center"><t t-esc="bloc.total_hours"/></td>
+                        <td class="text-center"><t t-esc="bloc.total_credits"/></td>
+                        <td></td>
+                        <!--<td></td>-->
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+    <template id="report_individual_bloc_content">
+        <t t-call="report.html_container">
+            <t t-set="data_report_margin_top" t-value="45" />
+            <t t-set="data_report_header_spacing" t-value="40" />
+            <t t-foreach="docs" t-as="bloc">
+            <t t-call="report.external_layout">
+                <div class="page">
+                    <h1><t t-esc="bloc.name"/></h1>
+                    
+                    <t t-call="school_management.school_bloc"/>
+                    
+                    <div class="container">
+                        <div class="row" style="margin-top:10px;">
+                            <div class="col-xs-10 col-xs-offset-1">
+                                Signature de l'étudiant
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:70px;">
+                            <div class="col-xs-4 col-xs-offset-1">
+                                Avis de la commission des études
+                            </div>
+                            <div class="col-xs-7">
+                                <textarea name="input-avis" style="width:350px;height:100px;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

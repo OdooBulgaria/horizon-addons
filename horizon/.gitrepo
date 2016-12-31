@@ -1,0 +1,11 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = git@github.com:be-cloud-be/horizon.git
+	branch = 9.0
+	commit = 078df111ced9d5d3a038c30397cc4ff60cb4f4e2
+	parent = d373cc9a32167bbe6f2a1e14d8be972c622279e4
+	cmdver = 0.3.0
