@@ -1,0 +1,11 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/OCA/server-tools.git
+	branch = 9.0
+	commit = b241a43eb01d54d45c787549f8c500e409c5c9ff
+	parent = 4f10bf5da094aa2646e95c485ff75be079b92839
+	cmdver = 0.3.0
