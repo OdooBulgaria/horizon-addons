@@ -1,0 +1,11 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = git@github.com:OCA/partner-contact.git
+	branch = 9.0
+	commit = a1267b5fc370406e2948e8afec3f5ece5ca17b3f
+	parent = 0a04e01faeef3309b48a98579d7cb3f951fc9221
+	cmdver = 0.3.0
