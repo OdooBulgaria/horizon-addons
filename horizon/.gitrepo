@@ -6,6 +6,6 @@
 [subrepo]
 	remote = git@github.com:be-cloud-be/horizon.git
 	branch = 9.0
-	commit = 078df111ced9d5d3a038c30397cc4ff60cb4f4e2
-	parent = d373cc9a32167bbe6f2a1e14d8be972c622279e4
+	commit = 6834bb957b7475e91474b7b6f1732bd208d94ea9
+	parent = 147ffbc7a07d14b3104ddf1b43be7c6b44914fd7
 	cmdver = 0.3.0
