@@ -4,7 +4,7 @@
 ; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
 ;
 [subrepo]
-	remote = https://github.com/OCA/website.git
+	remote = git@github.com:be-cloud-be/website.git
 	branch = 9.0
 	commit = 81a1d0eed8ce29f7b5d28634207017c1fe4a386e
 	parent = 5325ad3f441feec089ed5673084af584d2b9d208
