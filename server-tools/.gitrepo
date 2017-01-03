@@ -6,6 +6,6 @@
 [subrepo]
 	remote = https://github.com/OCA/server-tools.git
 	branch = 9.0
-	commit = b241a43eb01d54d45c787549f8c500e409c5c9ff
-	parent = 4f10bf5da094aa2646e95c485ff75be079b92839
+	commit = bb0c80e4c48146ce37c5a8f5effb71e7f4a09323
+	parent = b46c0e0ae330c80bc45712f0d7ff2b3c9906c655
 	cmdver = 0.3.0
