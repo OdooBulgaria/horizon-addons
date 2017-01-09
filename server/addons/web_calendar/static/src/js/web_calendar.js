@@ -258,7 +258,7 @@ var CalendarView = View.extend({
         this.init_calendar().then(function() {
             $(window).trigger('resize');
             self.trigger('calendar_view_loaded', self.fields_view);
-            this.$el.fullCalendar('render');
+            self.$el.fullCalendar('render');
         });
     },
     /**
