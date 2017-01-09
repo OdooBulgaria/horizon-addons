@@ -759,15 +759,15 @@ var CalendarView = View.extend({
                 // these RPC calls will race each other. Because of
                 // this we keep track of the current range of the
                 // calendar view.
-                self.current_start = start instanceof Date ? start : start.toDate();
-                self.current_end = end instanceof Date ? end : end.toDate();
+                self.current_start = start.toDate();
+                self.current_end = end.toDate();
                 self.dataset.read_slice(_.keys(self.fields), {
                     offset: 0,
                     domain: event_domain,
                     context: context,
                 }).done(function(events) {
                     // undo the read_slice if it the range has changed since it launched
-                    if (self.current_start.getTime() != start.getTime() || self.current_end.getTime() != end.getTime()) {
+                    if (self.current_start.getTime() != start.toDate().getTime() || self.current_end.getTime() != end.toDate().getTime()) {
                         self.dataset.ids = self.previous_ids;
                         return;
                     }
