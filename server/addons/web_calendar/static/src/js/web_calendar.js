@@ -738,7 +738,7 @@ var CalendarView = View.extend({
             this.$calendar.fullCalendar('removeEventSource', this.event_source);
         }
         this.event_source = {
-            events: function(start, end, callback) {
+            events: function(start, end, timezone, callback) {
                 // catch invalid dates (start/end dates not parseable yet)
                 // => ignore request
                 if (isNaN(start) || isNaN(end)) {
