@@ -32,7 +32,7 @@ function moment_to_str (obj) {
     if (!obj) {
         return false;
     }
-    return moment().format('YYYY-MM-DD hh:mm:ss');
+    return obj.format('YYYY-MM-DD hh:mm:ss');
 }
 
 function get_fc_defaultOptions() {
