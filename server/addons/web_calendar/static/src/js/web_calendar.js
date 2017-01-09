@@ -249,7 +249,9 @@ var CalendarView = View.extend({
             .then(function (create_right) {
                 self.create_right = create_right;
                 self.ready.resolve();
-                self.$calendar.fullCalendar('changeView');
+                setTimeout(function() {
+                    self.$calendar.fullCalendar('changeView');
+                }, 100);
                 self.trigger('calendar_view_loaded', fv);
             });
         return $.when(edit_check, init);
