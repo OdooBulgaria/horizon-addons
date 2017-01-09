@@ -258,7 +258,6 @@ var CalendarView = View.extend({
         this.init_calendar().then(function() {
             $(window).trigger('resize');
             self.trigger('calendar_view_loaded', self.fields_view);
-            this.$calendar.fullCalendar('render');
         });
     },
     /**
@@ -944,6 +943,7 @@ var CalendarView = View.extend({
     do_show: function() {            
         this.do_push_state({});
         this.shown.resolve();
+        this.$calendar.fullCalendar('render');
         return this._super();
     },
     is_action_enabled: function(action) {
