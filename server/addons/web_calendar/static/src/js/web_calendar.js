@@ -398,6 +398,11 @@ var CalendarView = View.extend({
 
         return $.when();
     },
+    
+    start: function() {
+        this.$calendar.fullCalendar('render');
+    },
+    
     extraSideBar: function() {
         return $.when();
     },
@@ -405,6 +410,7 @@ var CalendarView = View.extend({
     get_quick_create_class: function () {
         return widgets.QuickCreate;
     },
+    
     open_quick_create: function(data_template) { // FIXME
         if (!isNullOrUndef(this.quick)) {
             return this.quick.close();
@@ -904,6 +910,7 @@ var CalendarView = View.extend({
         }
         return false;
     },
+    
     open_event: function(id, title) {
         var self = this;
         if (! this.open_popup_action) {
@@ -943,9 +950,9 @@ var CalendarView = View.extend({
     do_show: function() {            
         this.do_push_state({});
         this.shown.resolve();
-        this.$calendar.fullCalendar('render');
         return this._super();
     },
+    
     is_action_enabled: function(action) {
         if (action === 'create' && !this.options.creatable) {
             return false;
@@ -971,6 +978,7 @@ var CalendarView = View.extend({
         this.dataset.trigger("dataset_changed", id);
         this.refresh_event(id);
     },
+    
     slow_created: function () {
         // refresh all view, because maybe some recurrents item
         var self = this;
