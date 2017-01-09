@@ -56,12 +56,6 @@ function get_fc_defaultOptions() {
         dayNames: moment.weekdays(),
         dayNamesShort: moment.weekdaysShort(),
         firstDay: moment._locale._week.dow,
-        weekNumberCalculation: function(date) {
-            if(date instanceof Date) {
-                return moment(date).week();
-            }
-            return date.week();
-        },
         weekNumbers: true,
         views: {
             month: { // name of view
