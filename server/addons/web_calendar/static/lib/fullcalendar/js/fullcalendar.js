@@ -11686,6 +11686,10 @@ function EventManager() { // assumed to be a calendar
 		}
 
 		var events = source.events;
+		// Initialize rangeStart and rangeEnd if undefined
+        rangeStart = rangeStart ? rangeStart : t.view.start ? t.view.start : moment();
+        rangeEnd = rangeEnd ? rangeEnd : t.view.end ? t.view.end : moment();
+		
 		if (events) {
 			if ($.isFunction(events)) {
 				t.pushLoading();
