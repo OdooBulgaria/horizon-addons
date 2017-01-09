@@ -32,6 +32,9 @@ function moment_to_str (obj) {
     if (!obj) {
         return false;
     }
+    if(obj instanceof Date){
+        return time.datetime_to_str(obj);
+    }
     return obj.format('YYYY-MM-DD hh:mm:ss');
 }
 
