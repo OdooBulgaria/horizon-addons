@@ -400,6 +400,7 @@ var CalendarView = View.extend({
     },
     
     start: function() {
+        this._super().start();
         this.$el.fullCalendar('render');
     },
     
