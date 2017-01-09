@@ -249,6 +249,7 @@ var CalendarView = View.extend({
             .then(function (create_right) {
                 self.create_right = create_right;
                 self.ready.resolve();
+                self.$el.fullCalendar('render');
                 self.trigger('calendar_view_loaded', fv);
             });
         return $.when(edit_check, init);
@@ -258,7 +259,6 @@ var CalendarView = View.extend({
         this.init_calendar().then(function() {
             $(window).trigger('resize');
             self.trigger('calendar_view_loaded', self.fields_view);
-            self.$el.fullCalendar('render');
         });
     },
     /**
