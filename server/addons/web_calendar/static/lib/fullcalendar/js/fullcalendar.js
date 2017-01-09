@@ -11687,8 +11687,8 @@ function EventManager() { // assumed to be a calendar
 
 		var events = source.events;
 		// Initialize rangeStart and rangeEnd if undefined
-        rangeStart = rangeStart ? rangeStart : t.view.start ? t.view.start : moment();
-        rangeEnd = rangeEnd ? rangeEnd : t.view.end ? t.view.end : moment();
+        rangeStart = rangeStart ? rangeStart : t.view.start ? t.view.start : moment().startOf('week');
+        rangeEnd = rangeEnd ? rangeEnd : t.view.end ? t.view.end : moment().startOf('week').add(6, 'days');
 		
 		if (events) {
 			if ($.isFunction(events)) {

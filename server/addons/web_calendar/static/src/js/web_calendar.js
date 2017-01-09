@@ -106,8 +106,8 @@ var CalendarView = View.extend({
         this.title = (this.options.action)? this.options.action.name : '';
 
         this.shown = $.Deferred();
-        self.current_start = moment();
-        self.current_end = moment();
+        self.current_start = moment().startOf('week');
+        self.current_end = moment().startOf('week').add(6, 'days');
         self.previous_ids = [];
     },
 
