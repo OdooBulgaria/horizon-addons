@@ -680,29 +680,27 @@ var CalendarView = View.extend({
         var event_end = event.end;
         //Bug when we move an all_day event from week or day view, we don't have a dateend or duration...            
         if (event_end === null) {
-            var m_date = moment(event.start).add(2, 'hours');
-            event_end = m_date.toDate();
+            event_end = event.start.add(2, 'hours');
         }
 
         if (event.allDay) {
             // Sometimes fullcalendar doesn't give any event.end.
             if (event_end === null || _.isUndefined(event_end)) {
-                event_end = new Date(event.start);
+                event_end = event.start;
             }
             if (this.all_day) {
-                date_start_day = new Date(Date.UTC(event.start.getFullYear(),event.start.getMonth(),event.start.getDate()));
-                date_stop_day = new Date(Date.UTC(event_end.getFullYear(),event_end.getMonth(),event_end.getDate()));                    
+                date_start_day = event.start;
+                date_stop_day = event.start;                    
             }
             else {
-                date_start_day = new Date(event.start.getFullYear(),event.start.getMonth(),event.start.getDate(),7);
-                date_stop_day = new Date(event_end.getFullYear(),event_end.getMonth(),event_end.getDate(),19);
+                date_start_day = event.start.hour(7);
+                date_stop_day = event.start.hour(19);
             }
-            data[this.date_start] = time.datetime_to_str(date_start_day);
+            data[this.date_start] = moment_to_str(date_start_day);
             if (this.date_stop) {
-                data[this.date_stop] = time.datetime_to_str(date_stop_day);
+                data[this.date_stop] = moment_to_str(date_stop_day);
             }
-            diff_seconds = Math.round((date_stop_day.getTime() - date_start_day.getTime()) / 1000);
-                            
+            diff_seconds = date_stop_day.diff(date_start_day, 'seconds');
         }
         else {
             data[this.date_start] = time.datetime_to_str(event.start);
