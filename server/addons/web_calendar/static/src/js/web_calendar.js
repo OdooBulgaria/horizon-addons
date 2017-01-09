@@ -99,8 +99,8 @@ var CalendarView = View.extend({
         this.view_id = view_id;
         this.view_type = 'calendar';
         this.color_map = {};
-        this.range_start = moment();
-        this.range_stop = moment();
+        this.range_start = moment().startOf('week');
+        this.range_stop = moment().startOf('week').add(6, 'days');
         this.selected_filters = [];
 
         this.title = (this.options.action)? this.options.action.name : '';
