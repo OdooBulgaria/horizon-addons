@@ -60,17 +60,23 @@ function get_fc_defaultOptions() {
             return moment(date).week();
         },
         weekNumbers: true,
-        titleFormat: {
-            month: 'MMMM yyyy',
-            week: "w",
-            day: dateFormat,
-        },
-        columnFormat: {
-            month: 'ddd',
-            week: 'ddd ' + dateFormat,
-            day: 'dddd ' + dateFormat,
-        },
-        weekMode : 'liquid',
+        views: {
+            month: { // name of view
+                titleFormat: 'MMMM yyyy',
+                columnFormat: 'ddd',
+                // other view-specific options here
+            },
+            week: { // name of view
+                titleFormat: 'w',
+                columnFormat: 'dddd ' + dateFormat,
+                // other view-specific options here
+            },
+            day: { // name of view
+                titleFormat: dateFormat,
+                columnFormat: 'dddd ' + dateFormat,
+                // other view-specific options here
+            }
+        }
         snapMinutes: 15,
     };
 }
