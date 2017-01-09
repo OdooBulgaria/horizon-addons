@@ -367,17 +367,17 @@ var CalendarView = View.extend({
     calendarMiniChanged: function (context) {
         return function(datum,obj) {
             var curView = context.$calendar.fullCalendar('getView');
-            var curDate = new Date(obj.currentYear , obj.currentMonth, obj.currentDay);
+            var curDate = moment([obj.currentYear , obj.currentMonth, obj.currentDay]);
 
             if (curView.name == "agendaWeek") {
                 if (curDate <= curView.end && curDate >= curView.start) {
                     context.$calendar.fullCalendar('changeView','agendaDay');
                 }
             }
-            else if (curView.name != "agendaDay" || (curView.name == "agendaDay" && moment(curDate).diff(moment(curView.start))===0)) {
+            else if (curView.name != "agendaDay" || (curView.name == "agendaDay" && curDate.diff(curView.start)===0)) {
                 context.$calendar.fullCalendar('changeView','agendaWeek');
             }
-            context.$calendar.fullCalendar('gotoDate', obj.currentYear , obj.currentMonth, obj.currentDay);
+            context.$calendar.fullCalendar('gotoDate', curDate);
         };
     },
 
