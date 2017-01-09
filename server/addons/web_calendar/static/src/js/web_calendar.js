@@ -59,18 +59,18 @@ function get_fc_defaultOptions() {
         weekNumbers: true,
         views: {
             month: { // name of view
-                titleFormat: 'MMMM yyyy',
+                titleFormat: 'MMMM YYYY',
                 columnFormat: 'ddd',
                 // other view-specific options here
             },
             week: { // name of view
                 titleFormat: 'w',
-                columnFormat: 'dddd ' + dateFormat,
+                columnFormat: 'dddd DD/MM',
                 // other view-specific options here
             },
             day: { // name of view
                 titleFormat: dateFormat,
-                columnFormat: 'dddd ' + dateFormat,
+                columnFormat: 'dddd DD/MM/YYYY',
                 // other view-specific options here
             }
         },
