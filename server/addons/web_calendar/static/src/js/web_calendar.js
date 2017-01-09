@@ -288,7 +288,7 @@ var CalendarView = View.extend({
 
         this.$buttons.find('.o_calendar_button_' + this.mode).addClass('active');
         
-        self.$calendar.fullCalendar, self.$calendar, 'changeView', 'agendaWeek')
+        self.$calendar.fullCalendar.changeView('agendaWeek')
         
         $node = $node || this.options.$buttons;
         if ($node) {
