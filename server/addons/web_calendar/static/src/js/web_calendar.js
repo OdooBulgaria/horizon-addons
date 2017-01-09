@@ -258,6 +258,7 @@ var CalendarView = View.extend({
         this.init_calendar().then(function() {
             $(window).trigger('resize');
             self.trigger('calendar_view_loaded', self.fields_view);
+            this.$calendar.fullCalendar('render');
         });
     },
     /**
@@ -287,8 +288,6 @@ var CalendarView = View.extend({
         bindCalendarButton('.o_calendar_button_month', 'changeView', 'month');
 
         this.$buttons.find('.o_calendar_button_' + this.mode).addClass('active');
-        
-        self.$calendar.fullCalendar.changeView('agendaWeek')
         
         $node = $node || this.options.$buttons;
         if ($node) {
