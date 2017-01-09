@@ -18,6 +18,23 @@ var _t = core._t;
 var _lt = core._lt;
 var QWeb = core.qweb;
 
+/**
+ * Converts a Moment javascript object to a string using OpenERP's
+ * datetime string format (exemple: '2011-12-01 15:12:35').
+ * 
+ * The time zone of the Date object is assumed to be the one of the
+ * browser and it will be converted to UTC (standard for OpenERP 6.1).
+ * 
+ * @param {Date} obj
+ * @returns {String} A string representing a datetime.
+ */
+function moment_to_str (obj) {
+    if (!obj) {
+        return false;
+    }
+    return moment().format('YYYY-MM-DD HH:MM:SS');
+}
+
 function get_fc_defaultOptions() {
     var dateFormat = time.strftime_to_moment_format(_t.database.parameters.date_format);
 
@@ -841,7 +858,7 @@ var CalendarView = View.extend({
      * between given start, end dates.
      */
     get_range_domain: function(domain, start, end) {
-        var format = time.datetime_to_str;
+        var format = moment_to_str;
         var extend_domain = [[this.date_start, '<=', format(end)]];
         if (this.date_stop) {
             extend_domain.push([this.date_stop, '>=', format(start)]);
