@@ -258,6 +258,7 @@ var CalendarView = View.extend({
         this.init_calendar().then(function() {
             $(window).trigger('resize');
             self.trigger('calendar_view_loaded', self.fields_view);
+            this.$el.fullCalendar('render');
         });
     },
     /**
@@ -397,11 +398,6 @@ var CalendarView = View.extend({
         this.$calendar.fullCalendar(this.get_fc_init_options());
 
         return $.when();
-    },
-    
-    start: function() {
-        this._super().start();
-        this.$el.fullCalendar('render');
     },
     
     extraSideBar: function() {
