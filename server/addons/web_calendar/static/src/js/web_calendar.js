@@ -76,7 +76,7 @@ function get_fc_defaultOptions() {
                 columnFormat: 'dddd ' + dateFormat,
                 // other view-specific options here
             }
-        }
+        },
         snapMinutes: 15,
     };
 }
