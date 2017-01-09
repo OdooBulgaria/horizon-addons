@@ -69,7 +69,7 @@ function get_fc_defaultOptions() {
                 // other view-specific options here
             },
             day: { // name of view
-                titleFormat: dateFormat,
+                titleFormat: 'DD/MM/YYYY',
                 columnFormat: 'dddd DD/MM/YYYY',
                 // other view-specific options here
             }
