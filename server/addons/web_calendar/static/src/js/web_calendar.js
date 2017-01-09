@@ -99,15 +99,15 @@ var CalendarView = View.extend({
         this.view_id = view_id;
         this.view_type = 'calendar';
         this.color_map = {};
-        this.range_start = null;
-        this.range_stop = null;
+        this.range_start = moment();
+        this.range_stop = moment();
         this.selected_filters = [];
 
         this.title = (this.options.action)? this.options.action.name : '';
 
         this.shown = $.Deferred();
-        self.current_start = null;
-        self.current_end = null;
+        self.current_start = moment();
+        self.current_end = moment();
         self.previous_ids = [];
     },
 
